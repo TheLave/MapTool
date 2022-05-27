@@ -45,7 +45,7 @@ export default {
 			markerMenu: false,
 			menuType: 'edit',
 			newMarkerLabel: '',
-			newMarkerColor: '',
+			newMarkerColor: 'Blue',
 			editMarkerLabel: '',
 			editMarkerColor: '',
 			markerColors: ['Blue', 'Red', 'Green', 'Purple', 'Orange']
@@ -74,6 +74,12 @@ export default {
 		prepareMarkerOptions(data) {
 			this.menuType = 'edit'
 			this.recentData = data
+			for (let i = 0; i < this.markers.length; i++) {
+				if (this.markers[i].latlng[0] === this.recentData.latlng.lat && this.markers[i].latlng[1] === this.recentData.latlng.lng) {
+					this.editMarkerLabel = this.markers[i].tooltip
+					this.editMarkerColor = this.markers[i].color
+				}
+			}
 		},
 		addMarker() {
 			this.markers.push({

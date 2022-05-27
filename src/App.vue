@@ -24,18 +24,27 @@
 		</q-drawer>
 		<q-page-container>
 			<q-page padding>
-				<div style="height: 80vh; width: 80vw;">
-					<l-map :minZoom="-1" :maxZoom="4" crs="Simple" :center="maps[currentMap].center" :options="{doubleClickZoom: false, zoomSnap: 0.25, zoomDelta: 0.25}" @contextmenu="prepareNewMarker">
+				<div style="height: 80vh; width: 90vw;">
+					<l-map :minZoom="-1" :maxZoom="4" crs="Simple" :center="maps[currentMap].center" :options="{doubleClickZoom: false, zoomSnap: 0.25, zoomDelta: 0.25, attributionControl: false}" @contextmenu="prepareNewMarker">
 						<q-menu context-menu touch-position>
 							<q-list style="min-width: 100px">
-								<q-item v-if="menuType == 'new'" clickable v-close-popup @click="newMarkerPrompt = true">
+								<q-item v-if="menuType == 'new'" clickable v-close-popup @click="newMarkerPrompt = true" icon="add">
+									<q-item-section side>
+										<q-icon name="add" />
+									</q-item-section>
 									<q-item-section>New marker</q-item-section>
 								</q-item>
-								<q-item v-if="menuType == 'edit'" clickable v-close-popup @click="removeMarker">
-									<q-item-section>Remove marker</q-item-section>
-								</q-item>
 								<q-item v-if="menuType == 'edit'" clickable v-close-popup @click="editMarkerPrompt = true">
+									<q-item-section side>
+										<q-icon name="edit" />
+									</q-item-section>
 									<q-item-section>Edit marker</q-item-section>
+								</q-item>
+								<q-item v-if="menuType == 'edit'" clickable v-close-popup @click="removeMarker">
+									<q-item-section side>
+										<q-icon name="delete" />
+									</q-item-section>
+									<q-item-section>Remove marker</q-item-section>
 								</q-item>
 							</q-list>
 						</q-menu>
@@ -56,10 +65,10 @@
 				<div class="text-h6">Marker label</div>
 			</q-card-section>
 			<q-card-section class="q-pt-none">
-				<q-input dense v-model="newMarkerLabel" autofocus @keyup.enter="addMarker(); newMarkerPrompt = false" />
+				<q-input dense v-model="newMarkerLabel" autofocus @keyup.enter="addMarker(); newMarkerPrompt = false" label="Label" />
 			</q-card-section>
 			<q-card-section class="q-pt-none">
-				<q-select v-model="newMarkerColor" :options="markerColors" label="Standard" />
+				<q-select v-model="newMarkerColor" :options="markerColors" label="Type"/>
 			</q-card-section>
 			<q-card-actions align="right" class="text-primary">
 				<q-btn flat label="Cancel" v-close-popup />
@@ -73,10 +82,10 @@
 				<div class="text-h6">Marker label</div>
 			</q-card-section>
 			<q-card-section class="q-pt-none">
-				<q-input dense v-model="editMarkerLabel" autofocus @keyup.enter="addMarker(); editMarkerPrompt = false" />
+				<q-input dense v-model="editMarkerLabel" autofocus @keyup.enter="addMarker(); editMarkerPrompt = false" label="Label" />
 			</q-card-section>
 			<q-card-section class="q-pt-none">
-				<q-select v-model="editMarkerColor" :options="markerColors" label="Standard" />
+				<q-select v-model="editMarkerColor" :options="markerColors" label="Type" />
 			</q-card-section>
 			<q-card-actions align="right" class="text-primary">
 				<q-btn flat label="Cancel" v-close-popup />
