@@ -25,6 +25,6 @@ To build the application for production. You can use this when you have finished
 - [ ] Add The Lab
 - [ ] Change marker sprites
 - [ ] Change map images to contain less clutter when empty
-- [ X ] Add marker filters
+- [X] Add marker filters
 - [ ] Add support for advances (Create strategy plans)
 - [ ] Add backend with functioning database persistency
