@@ -58,6 +58,11 @@ export default {
 		iconSize() {
 			return [this.iconWidth, this.iconHeight];
 		},
+		filteredMarkers() {
+			return this.markers.filter(item => {
+				return this.setFilters.includes(item.color);
+			})
+		},
 	},
 	methods: {
 		log(a) {
@@ -116,7 +121,31 @@ export default {
 			newMarkerPrompt: ref(false),
 			editMarkerPrompt: ref(false),
 			drawer: ref(false),
-			miniState: ref(true)
+			miniState: ref(true),
+
+			setFilters: ref(['Blue', 'Red', 'Green', 'Purple', 'Orange']),
+			filterOptions: [
+				{
+					label: 'Blue',
+					value: 'Blue'
+				},
+				{
+					label: 'Red',
+					value: 'Red'
+				},
+				{
+					label: 'Green',
+					value: 'Green'
+				},
+				{
+					label: 'Purple',
+					value: 'Purple'
+				},
+				{
+					label: 'Orange',
+					value: 'Orange'
+				},
+			]
 		}
 	}
 };

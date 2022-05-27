@@ -24,8 +24,8 @@
 		</q-drawer>
 		<q-page-container>
 			<q-page padding>
-				<div style="height: 80vh; width: 90vw;">
-					<l-map :minZoom="-1" :maxZoom="4" crs="Simple" :center="maps[currentMap].center" :options="{doubleClickZoom: false, zoomSnap: 0.25, zoomDelta: 0.25, attributionControl: false}" @contextmenu="prepareNewMarker">
+				<div>
+					<l-map :minZoom="-1" :maxZoom="4" crs="Simple" :center="maps[currentMap].center" :options="{doubleClickZoom: false, zoomSnap: 0.25, zoomDelta: 0.25, attributionControl: false, zoomControl: false}" @contextmenu="prepareNewMarker" style="height: 80vh; width: 90vw;">
 						<q-menu context-menu touch-position>
 							<q-list style="min-width: 100px">
 								<q-item v-if="menuType == 'new'" clickable v-close-popup @click="newMarkerPrompt = true" icon="add">
@@ -49,12 +49,16 @@
 							</q-list>
 						</q-menu>
 						<l-image-overlay :url="maps[currentMap].image" :bounds="maps[currentMap].bounds"></l-image-overlay>
-						<l-marker v-for="marker in markers" :icon="marker.icon" :lat-lng="marker.latlng" @contextmenu="prepareMarkerOptions">
+						<l-marker v-for="marker in filteredMarkers" :icon="marker.icon" :lat-lng="marker.latlng" @contextmenu="prepareMarkerOptions">
 							<l-tooltip :options="{permanent: true, direction: 'top', offset: [0, -40]}">
 								{{marker.tooltip}}
 							</l-tooltip>
 						</l-marker>
 					</l-map>
+					<div class="markerFilter">
+						<div class="text-h6">Filters</div>
+						<q-option-group v-model="setFilters" :options="filterOptions" type="toggle" />
+					</div>
 				</div>
 			</q-page>
 		</q-page-container>
