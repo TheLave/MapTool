@@ -1,8 +1,8 @@
 .markerFilter {
-	z-index: 9999999999999999999999999999999;
+	z-index: 999;
 	position: absolute;
-	top: 4vh;
-	left: 4vh;
+	top: 9vh;
+	left: 10vh;
 	background-color: #212121;
 	border-radius: 15px;
 	padding: 10px;

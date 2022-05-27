@@ -9,7 +9,7 @@
 			</q-toolbar>
 		</q-header>
 		<q-drawer v-model="drawer" show-if-above :mini="miniState" @mouseover="miniState = false" @mouseout="miniState = true" mini-to-overlay :width="200" :breakpoint="500" bordered class="bg-grey-3">
-			<q-scroll-area class="fit">
+			<q-scroll-area class="fit z-max">
 				<q-list padding>
 					<q-item v-for="(map, mapName) in maps" clickable v-ripple :active="(currentMap == mapName)" @click="openMap(mapName)">
 						<q-item-section avatar>
@@ -55,13 +55,13 @@
 							</l-tooltip>
 						</l-marker>
 					</l-map>
+				</div>
+			</q-page>
+		</q-page-container>
 					<div class="markerFilter">
 						<div class="text-h6">Filters</div>
 						<q-option-group v-model="setFilters" :options="filterOptions" type="toggle" />
 					</div>
-				</div>
-			</q-page>
-		</q-page-container>
 	</q-layout>
 	<q-dialog v-model="newMarkerPrompt">
 		<q-card style="min-width: 350px">
