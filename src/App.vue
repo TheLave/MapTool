@@ -49,7 +49,7 @@
 							</q-list>
 						</q-menu>
 						<l-image-overlay :url="maps[currentMap].image" :bounds="maps[currentMap].bounds"></l-image-overlay>
-						<l-marker v-for="marker in filteredMarkers" :icon="marker.icon" :lat-lng="marker.latlng" @contextmenu="prepareMarkerOptions">
+						<l-marker v-for="(marker, index) in filteredMarkers" :icon="marker.icon" :lat-lng="marker.latlng" @contextmenu="prepareMarkerOptions">
 							<l-tooltip :options="{permanent: true, direction: 'top', offset: [0, -40]}">
 								{{marker.tooltip}}
 							</l-tooltip>
@@ -58,10 +58,10 @@
 				</div>
 			</q-page>
 		</q-page-container>
-					<div class="markerFilter">
-						<div class="text-h6">Filters</div>
-						<q-option-group v-model="setFilters" :options="filterOptions" type="toggle" />
-					</div>
+		<div class="markerFilter">
+			<div class="text-h6">Filters</div>
+			<q-option-group v-model="setFilters" :options="filterOptions" type="toggle" />
+		</div>
 	</q-layout>
 	<q-dialog v-model="newMarkerPrompt">
 		<q-card style="min-width: 350px">
@@ -86,7 +86,7 @@
 				<div class="text-h6">Marker label</div>
 			</q-card-section>
 			<q-card-section class="q-pt-none">
-				<q-input dense v-model="editMarkerLabel" autofocus @keyup.enter="addMarker(); editMarkerPrompt = false" label="Label" />
+				<q-input dense v-model="editMarkerLabel" autofocus @keyup.enter="editMarker(); editMarkerPrompt = false" label="Label" />
 			</q-card-section>
 			<q-card-section class="q-pt-none">
 				<q-select v-model="editMarkerColor" :options="markerColors" label="Type" />

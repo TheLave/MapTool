@@ -153,14 +153,26 @@ export default {
 			for (let i = 0; i < this.markers.length; i++) {
 				if (this.markers[i].latlng[0] === this.recentData.latlng.lat && this.markers[i].latlng[1] === this.recentData.latlng.lng) {
 					this.markers[i] = {
+						id: this.markers[i].id,
 						tooltip: this.editMarkerLabel,
 						latlng: [this.recentData.latlng.lat, this.recentData.latlng.lng],
 						color: this.editMarkerColor,
 						icon: icon({iconUrl: `markers/marker-${this.editMarkerColor}.png`, iconSize: [50, 50], iconAnchor: [25, 50]})
 					}
+					this.editMarkerLabel = ''
+					$.ajax({
+						url: 'http://192.168.2.112:8080/editMarker',
+						type: 'post',
+						dataType: 'json',
+						contentType: 'application/json',
+						data: JSON.stringify({
+							id: this.markers[i].id,
+							color: this.markers[i].color,
+							tooltip: this.markers[i].tooltip
+						})
+					});
 				}
 			}
-			this.editMarkerLabel = ''
 		},
 		loadMapMarkers() {
 			$.get(`http://192.168.2.112:8080/${this.currentMap}`, data => {
@@ -191,23 +203,23 @@ export default {
 			setFilters: ref(['Blue', 'Red', 'Green', 'Purple', 'Orange']),
 			filterOptions: [
 				{
-					label: 'Blue',
+					label: 'Blue (Callout)',
 					value: 'Blue'
 				},
 				{
-					label: 'Red',
+					label: 'Red (Mines)',
 					value: 'Red'
 				},
 				{
-					label: 'Green',
+					label: 'Green (Lootables)',
 					value: 'Green'
 				},
 				{
-					label: 'Purple',
+					label: 'Purple (Spawn point)',
 					value: 'Purple'
 				},
 				{
-					label: 'Orange',
+					label: 'Orange (Extract)',
 					value: 'Orange'
 				},
 			]
